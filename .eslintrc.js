@@ -16,5 +16,6 @@ module.exports = {
   },
   rules: {
     semi: ['error', 'always'],
+    '@typescript-eslint/strict-boolean-expressions': ['error', { allowNullableString: true }],
   }
 };

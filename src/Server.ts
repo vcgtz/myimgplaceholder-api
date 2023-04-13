@@ -2,9 +2,11 @@ import express from 'express';
 
 class Server {
   private readonly app: express.Application;
+  private readonly port: number;
 
   constructor() {
     this.app = express();
+    this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
   }
 
   public run(): void {
@@ -14,8 +16,9 @@ class Server {
       });
     });
 
-    this.app.listen(3000, () => {
-      console.log('Running application on port: 3000');
+    this.app.listen(this.port, () => {
+      console.log(`Running application on port: ${this.port}`);
+      console.log(`Environment: ${process.env.NODE_ENV ?? 'development'}`);
     });
   }
 }
