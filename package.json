@@ -4,10 +4,11 @@
   "description": "API",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src/**/*.ts",
-    "tsc": "tsc",
+    "dev": "npm run tsc && node dist/app.js",
+    "format": "prettier --write src/**/*.ts",
     "init": "tsc --init",
-    "format": "prettier --write src/**/*.ts"
+    "lint": "eslint src/**/*.ts",
+    "tsc": "tsc"
   },
   "author": "",
   "license": "MIT",
