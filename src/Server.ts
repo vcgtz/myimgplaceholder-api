@@ -12,24 +12,18 @@ class Server {
     this.app = express();
     this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
     this.router = RouterManager.getInstance();
-
-    this.setConfig();
   }
 
-  private setConfig(): void {
+  private async setConfig(): Promise<void> {
     this.app.use(cors());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(bodyParser.json());
 
-    this.app.use('/', this.router.getRouter());
+    this.app.use('/', await this.router.getRouter());
   }
 
-  public run(): void {
-    this.app.get('/', (req: express.Request, res: express.Response) => {
-      res.json({
-        message: 'Hello World!',
-      });
-    });
+  public async run(): Promise<void> {
+    await this.setConfig();
 
     this.app.listen(this.port, () => {
       console.log(`Running application on port: ${this.port}`);

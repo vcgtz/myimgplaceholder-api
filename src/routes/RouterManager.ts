@@ -1,25 +1,43 @@
-import { Router as ExpressRouter, type Request, type Response } from 'express';
+import fs from 'fs/promises';
+import { Router as ExpressRouter } from 'express';
+import type Router from './Router';
 
 class RouterManager {
   private static instance: RouterManager | null = null;
   private readonly router: ExpressRouter;
+  private readonly ommitedFiles: string[];
   
   private constructor() {
     this.router = ExpressRouter();
-
-    this.registerRouter();
+    this.ommitedFiles = ['RouterManager', 'Router'];
   }
 
-  private registerRouter(): void {
-    // Register all routes here
-    this.router.use('/', (req: Request, res: Response) => {
-      res.json({
-        message: 'Hello World!',
-      });
-    });
+  private async importRouterFiles(): Promise<void> {
+    // Import dynamically routers files
+    try {
+      const files: string[] = (await fs.readdir(__dirname))
+        .map((file: string) => {
+          return file.split('.')[0];
+        })
+        .filter((file: string) => {
+          return !this.ommitedFiles.includes(file);
+        });
+      const uniqueFiles: string[] = [...new Set(files)];
+
+      for (let i: number = 0; i < uniqueFiles.length; i++) {
+        if (!this.ommitedFiles.includes(uniqueFiles[i])) {
+          // eslint-disable-next-line
+          const router: Router = new (await import(`./${uniqueFiles[i]}`)).default;
+          this.router.use(router.getRouteName(), router.getRouter());
+        }
+    }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  public getRouter(): ExpressRouter {
+  public async getRouter(): Promise<ExpressRouter> {
+    await this.importRouterFiles();
     return this.router;
   }
 

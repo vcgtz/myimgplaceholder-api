@@ -5,5 +5,12 @@ import Server from './Server';
 
 (() => {
   const server = new Server();
-  server.run();
+
+  server.run()
+    .then(() => {
+      console.log('Server started');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 })();
