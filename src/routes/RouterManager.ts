@@ -1,7 +1,7 @@
 import { Router as ExpressRouter, type Request, type Response } from 'express';
 
-class Router {
-  private static instance: Router | null = null;
+class RouterManager {
+  private static instance: RouterManager | null = null;
   private readonly router: ExpressRouter;
   
   private constructor() {
@@ -23,13 +23,13 @@ class Router {
     return this.router;
   }
 
-  public static getInstance(): Router {
+  public static getInstance(): RouterManager {
     if (!this.instance) {
-      this.instance = new Router();
+      this.instance = new RouterManager();
     }
 
     return this.instance;
   }
 };
 
-export default Router;
+export default RouterManager;

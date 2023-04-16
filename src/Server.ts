@@ -1,17 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import Router from './routes/Router';
+import RouterManager from './routes/RouterManager';
 
 class Server {
   private readonly app: express.Application;
   private readonly port: number;
-  private readonly router: Router;
+  private readonly router: RouterManager;
 
   constructor() {
     this.app = express();
     this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-    this.router = Router.getInstance();
+    this.router = RouterManager.getInstance();
 
     this.setConfig();
   }
