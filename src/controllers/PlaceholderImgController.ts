@@ -8,7 +8,7 @@ interface PlaceholderImgInformation {
 };
 
 class PlaceholderImgController {
-  public index(req: Request, res: Response): void {
+  public render(req: Request, res: Response): void {
     const imgDescription: PlaceholderImgInformation = {
       width: +(req.query.width as string),
       height: +(req.query.height as string),
