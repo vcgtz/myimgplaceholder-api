@@ -18,7 +18,7 @@ class PlaceholderImgRouter extends Router {
 
   public registerRoutes(): void {
     // Register all of the routes here ↓
-    this.router.get('/', this.controller.index);
+    this.router.get('/', this.controller.index.bind(this.controller));
   }
 
   public getRouteName(): string {
