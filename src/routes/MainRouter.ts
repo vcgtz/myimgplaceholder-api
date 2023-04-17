@@ -15,10 +15,10 @@ class MainRouter extends Router {
 
   public registerRoutes(): void {
     // Register all of the routes here ↓
-    this.router.use('/', (req: Request, res: Response) => {
+    this.router.get('/', (req: Request, res: Response) => {
       res.json({
         status: 'ok',
-        message: 'Hello World!',
+        message: 'Hello World2!',
       });
     });
   }
