@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express';
 import sharp from 'sharp';
 
-class PlaceholderImgController {
+class PlaceholderImgageController {
   public index(req: Request, res: Response): Response {
     const imageInfo: string[][] = [
       ['width', req.query.width as string],
@@ -63,4 +63,4 @@ class PlaceholderImgController {
   }
 }
 
-export default PlaceholderImgController;
+export default PlaceholderImgageController;

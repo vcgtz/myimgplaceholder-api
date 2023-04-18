@@ -1,6 +1,6 @@
 import { Router as ExpressRouter } from 'express';
 import Router from './Router';
-import PlaceholderImgController from '../controllers/PlaceholderImgController';
+import PlaceholderImgController from '../controllers/PlaceholderImageController';
 
 class PlaceholderImgRouter extends Router {
   private readonly router: ExpressRouter;
