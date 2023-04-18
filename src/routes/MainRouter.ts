@@ -18,7 +18,7 @@ class MainRouter extends Router {
     this.router.get('/', (req: Request, res: Response) => {
       res.json({
         status: 'ok',
-        message: 'Hello World2!',
+        message: 'Hello World!',
       });
     });
   }
