@@ -1,6 +1,7 @@
 import { Router as ExpressRouter } from 'express';
 import Router from './Router';
 import PlaceholderImgController from '../controllers/PlaceholderImageController';
+import { validateParams, validateBase64Params } from '../middlewares/placeholderImages';
 
 class PlaceholderImgRouter extends Router {
   private readonly router: ExpressRouter;
@@ -18,8 +19,8 @@ class PlaceholderImgRouter extends Router {
 
   public registerRoutes(): void {
     // Register all of the routes here ↓
-    this.router.get('/', this.controller.index.bind(this.controller));
-    this.router.get('/image/:imageInfo', this.controller.render.bind(this.controller));
+    this.router.get('/', [validateParams], this.controller.index.bind(this.controller));
+    this.router.get('/image/:imageInfo', [validateBase64Params], this.controller.render.bind(this.controller));
   }
 
   public getRouteName(): string {
