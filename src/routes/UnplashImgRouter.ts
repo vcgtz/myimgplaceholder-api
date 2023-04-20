@@ -1,6 +1,7 @@
 import { Router as ExpressRouter } from 'express';
 import Router from './Router';
 import UnplashImageController from '../controllers/UnplashImageController';
+import { validateParams } from '../middlewares/unplashImages';
 
 class PlaceholderImgRouter extends Router {
   private readonly router: ExpressRouter;
@@ -18,7 +19,7 @@ class PlaceholderImgRouter extends Router {
 
   public registerRoutes(): void {
     // Register all of the routes here ↓
-    this.router.get('/', this.controller.index.bind(this.controller));
+    this.router.get('/', [validateParams], this.controller.index.bind(this.controller));
     this.router.get('/random', this.controller.random.bind(this.controller));
   }
 

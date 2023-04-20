@@ -5,11 +5,11 @@ export const validateParams = (req: Request, res: Response, next: NextFunction):
   const errors: string[] = [];
 
   if (!width) {
-    errors.push('The width parameter are required.');
+    errors.push('The width parameter is required.');
   }
 
   if (!height) {
-    errors.push('The height parameters are required.');
+    errors.push('The height parameters is required.');
   }
 
   if (width && isNaN(+width)) {
