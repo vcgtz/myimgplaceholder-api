@@ -14,28 +14,32 @@ class UnplashImageController {
       });
     }
 
+    return res.json({
+      status: 'ok',
+      image: this.getImage(unplashResponse),
+    });
+  }
+
+  private getImage(response: AxiosResponse): Image {
     const sizes: ImageSize[] = [];
 
-    for (const size in unplashResponse.data.urls) {
+    for (const size in response.data.urls) {
       sizes.push({
         size: size === 'raw' ? 'original' : size,
-        url: unplashResponse.data.urls[size]
+        url: response.data.urls[size]
       });
     }
 
     const image: Image = {
-      width: unplashResponse.data.width,
-      height: unplashResponse.data.height,
-      color: unplashResponse.data.color,
-      description: unplashResponse.data.description,
-      credit: `Photo by ${unplashResponse.data.user.name} on Unsplash`,
+      width: response.data.width,
+      height: response.data.height,
+      color: response.data.color,
+      description: response.data.description,
+      credit: `Photo by ${response.data.user.name} on Unsplash`,
       sizes
     };
 
-    return res.json({
-      status: 'ok',
-      image
-    });
+    return image;
   }
 }
 
