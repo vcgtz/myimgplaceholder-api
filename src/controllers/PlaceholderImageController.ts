@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express';
 import sharp from 'sharp';
-import type Image from '../interfaces/Image';
+import { type Image, type ImageSize } from '../interfaces/Image';
 
 class PlaceholderImgageController {
   public index(req: Request, res: Response): Response {
@@ -14,12 +14,16 @@ class PlaceholderImgageController {
     ];
     const urlParams = new URLSearchParams(imageInfo);
     const urlParamsBase64 = Buffer.from(urlParams.toString()).toString('base64');
+
+    const sizes: ImageSize[] = [
+      { size: 'original', url: `${process.env.URL_BASE}/placeholder/image/${urlParamsBase64}` }
+    ];
     const image: Image = {
       width: +width,
       height: +height,
       color: `#${color}`,
       description: `${width} × ${height}`,
-      url: `${process.env.URL_BASE}/placeholder/image/${urlParamsBase64}`,
+      sizes,
     };
 
     return res.json({

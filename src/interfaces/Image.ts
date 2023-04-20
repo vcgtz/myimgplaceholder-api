@@ -1,11 +1,13 @@
-interface Image {
+export interface ImageSize {
+  size: string;
+  url: string;
+}
+
+export interface Image {
   width: number;
   height: number;
   color: string;
   description?: string;
   credit?: string;
-  url: string;
-  urlThumb?: string;
+  sizes: ImageSize[];
 };
-
-export default Image;
