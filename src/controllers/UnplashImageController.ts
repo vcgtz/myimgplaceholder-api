@@ -1,5 +1,6 @@
 import { type Request, type Response } from 'express';
 import axios, { type AxiosResponse } from 'axios';
+import type Image from '../interfaces/Image';
 
 class UnplashImageController {
   public async random(req: Request, res: Response): Promise<Response> {
@@ -13,9 +14,19 @@ class UnplashImageController {
       });
     }
 
+    const image: Image = {
+      width: unplashResponse.data.width,
+      height: unplashResponse.data.height,
+      color: unplashResponse.data.color,
+      description: unplashResponse.data.description,
+      url: unplashResponse.data.urls.raw,
+      urlThumb: unplashResponse.data.urls.thumb,
+      credit: `Photo by ${unplashResponse.data.user.name} on Unsplash`
+    };
+
     return res.json({
       status: 'ok',
-      image: unplashResponse.data
+      image
     });
   }
 }

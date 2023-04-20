@@ -1,11 +1,11 @@
 interface Image {
   width: number;
-  heigth: number;
+  height: number;
   color: string;
-  description: string;
+  description?: string;
+  credit?: string;
   url: string;
   urlThumb?: string;
-  credit?: string;
 };
 
 export default Image;

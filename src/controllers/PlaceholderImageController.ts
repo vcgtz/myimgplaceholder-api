@@ -16,12 +16,12 @@ class PlaceholderImgageController {
     const urlParamsBase64 = Buffer.from(urlParams.toString()).toString('base64');
     const image: Image = {
       width: +width,
-      heigth: +height,
+      height: +height,
       color: `#${color}`,
       description: `${width} × ${height}`,
       url: `${process.env.URL_BASE}/placeholder/image/${urlParamsBase64}`,
     };
-    
+
     return res.json({
       status: 'ok',
       image
