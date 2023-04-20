@@ -18,6 +18,7 @@ class PlaceholderImgRouter extends Router {
 
   public registerRoutes(): void {
     // Register all of the routes here ↓
+    this.router.get('/', this.controller.index.bind(this.controller));
     this.router.get('/random', this.controller.random.bind(this.controller));
   }
 
