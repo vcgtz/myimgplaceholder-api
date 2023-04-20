@@ -1,29 +1,30 @@
 import { type Request, type Response } from 'express';
 import sharp from 'sharp';
+import type Image from '../interfaces/Image';
 
 class PlaceholderImgageController {
   public index(req: Request, res: Response): Response {
+    const { width, height, color = '333333' }: { width: string, height: string, color: string }
+      = req.query as { width: string, height: string, color: string };
+
     const imageInfo: string[][] = [
-      ['width', req.query.width as string],
-      ['height', req.query.height as string],
-      ['color', req.query.color as string ?? '333333'],
+      ['width', width],
+      ['height', height],
+      ['color', color],
     ];
     const urlParams = new URLSearchParams(imageInfo);
     const urlParamsBase64 = Buffer.from(urlParams.toString()).toString('base64');
-    const width: number = +(req.query.width as string);
-    const height: number = +(req.query.height as string);
-    const color: string = req.query.color as string ?? '333333';
-
+    const image: Image = {
+      width: +width,
+      heigth: +height,
+      color: `#${color}`,
+      description: `${width} × ${height}`,
+      url: `${process.env.URL_BASE}/placeholder/image/${urlParamsBase64}`,
+    };
+    
     return res.json({
       status: 'ok',
-      image: {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        url: `${process.env.URL_BASE}/placeholder/image/${urlParamsBase64}`,
-        width,
-        height,
-        color: `#${color}`,
-        description: `${width} × ${height}`,
-      }
+      image
     });
   }
 
